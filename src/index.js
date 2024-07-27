@@ -1,7 +1,9 @@
 import { Router } from "express";
 import indexPage from "./pages/index";
-import usersService from "./services/users";
+// import deleteReq from "./pages/delete-task"
+import { dataBulk } from "./services/dbApi";
 
 export const router = Router()
   .get("/", indexPage)
-  .get("/services/users", usersService);
+  .get("/api/tasks", dataBulk)
+  // .get("/delete/:id", deleteReq)

@@ -1,109 +1,26 @@
-import raptorPubsub from "raptor-pubsub";
-
-const buttonSizes = ["small", "normal", "large"];
-const buttonVariants = ["primary", "secondary"];
-
-let currentButtonSize = 0;
-let currentButtonVariant = 0;
+// import raptorPubsub from "raptor-pubsub";
+// import { navigate } from "marko-router5"
+// import mongoose from 'mongoose';
+// import { Task } from "../../services/model/Todo.js"
+// const Todo = await mongoose.model('Todo');
+// console.log(Todo.find())
 
 export default class {
-  onInput(input) {
-    const now = new Date().toString();
-
+  onCreate() {
     this.state = {
-      buttonSize: input.buttonSize || "small",
-      buttonVariant: input.buttonVariant || "primary",
-      overlayVisible: false,
-      checked: input.checked || {
-        foo: false,
-        bar: true,
-        baz: false
-      },
-      dynamicTabs: [
-        {
-          timestamp: now
-        },
-        {
-          timestamp: now
-        }
-      ]
-    };
+      allData: []
+    }
   }
 
-  handleCheckboxToggle(event) {
-    const { state } = this;
-    const { checked, data: { name } } = event;
-
-    // We treat complex objects stored in the state as immutable
-    // since only a shallow compare is done to see if the state
-    // has changed. Instead of modifying the "checked" object,
-    // we create a new object with the updated state of what is
-    // checked.
-    this.state.checked = {
-      ...state.checked,
-      [name]: checked
-    };
+  async onMount() {
+    try {
+      const data = await fetch('/api/tasks')
+      this.state.allData = await data.json();
+    } catch (err) {
+      console.log(`Error fetching data: ${err}`)
+    }
   }
-
-  /**
-   * This demonstrates how to provide a custom state transition handler to avoid
-   * a full rerender.
-   */
-  update_overlayVisible(overlayVisible) {
-    this.getComponent("overlay").setVisibility(overlayVisible);
-  }
-
-  handleShowOverlayButtonClick() {
-    // this.setState('overlayVisible', true);
-    this.getComponent("overlay").show();
-  }
-
-  handleOverlayHide() {
-    // Synchronize the updated state of the o
-    this.setState("overlayVisible", false);
-  }
-
-  handleOverlayShow() {
-    this.setState("overlayVisible", true);
-  }
-
-  handleShowNotificationButtonClick() {
-    raptorPubsub.emit("notification", {
-      message: "This is a notification"
-    });
-  }
-
-  handleOverlayOk() {
-    raptorPubsub.emit("notification", {
-      message: 'You clicked the "Done" button!'
-    });
-  }
-
-  handleOverlayCancel() {
-    raptorPubsub.emit("notification", {
-      message: 'You clicked the "Cancel" button!'
-    });
-  }
-
-  handleChangeButtonSizeClick() {
-    const nextButtonSize = buttonSizes[++currentButtonSize % buttonSizes.length];
-    this.state.buttonSize = nextButtonSize;
-  }
-
-  handleChangeButtonVariantClick() {
-    const nextButtonVariant =
-      buttonVariants[++currentButtonVariant % buttonVariants.length];
-    this.state.buttonVariant = nextButtonVariant;
-  }
-
-  handleToggleCheckboxButtonClick(event) {
-    const checkbox = this.getComponent("toggleCheckbox");
-    checkbox.toggle();
-  }
-
-  handleAddTabButtonClick() {
-    this.state.dynamicTabs = this.state.dynamicTabs.concat({
-      timestamp: "" + new Date()
-    });
-  }
-};
+  // goTo() {
+  //   navigate('/addTask')
+  // }
+}

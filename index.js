@@ -3,6 +3,8 @@ import express from "express";
 import markoMiddleware from "@marko/express";
 import compressionMiddleware from "compression";
 
+import { dbConnect } from "./src/services/database/db.js"
+
 const devEnv = "development";
 const { NODE_ENV = devEnv, PORT = 3000 } = process.env;
 console.time("Start");
@@ -10,6 +12,11 @@ console.time("Start");
 const app = express()
   .use(compressionMiddleware()) // Enable gzip compression for all HTTP responses.
   .use(markoMiddleware());
+
+
+// Connect to database
+dbConnect();
+
 
 if (NODE_ENV === devEnv) {
   const { createServer } = await import("vite");

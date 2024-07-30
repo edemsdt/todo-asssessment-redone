@@ -2,3 +2,8 @@
     padding-top: 1em;
     padding-bottom: 1em;
 }
+
+.list-wrapper .completed {
+    text-decoration: line-through;
+    text-decoration-color: #3da5f4
+}

@@ -11,7 +11,8 @@ console.time("Start");
 
 const app = express()
   .use(compressionMiddleware()) // Enable gzip compression for all HTTP responses.
-  .use(markoMiddleware());
+  .use(markoMiddleware())
+  .use(express.json());
 
 
 // Connect to database

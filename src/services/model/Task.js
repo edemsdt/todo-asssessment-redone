@@ -8,8 +8,9 @@ const taskSchema = new Schema({
     },
     checked: {
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     }
 })
 
-// export const Task = model('Task', taskSchema);
+export const Task = model('Task', taskSchema);

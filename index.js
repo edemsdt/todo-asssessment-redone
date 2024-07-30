@@ -2,7 +2,7 @@ import { once } from "events";
 import express from "express";
 import markoMiddleware from "@marko/express";
 import compressionMiddleware from "compression";
-
+import mongoose from "mongoose";
 import { dbConnect } from "./src/services/database/db.js"
 
 const devEnv = "development";

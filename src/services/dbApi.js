@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-// import { Todo } from "./model/Todo";
 import { Task } from "./model/Task";
 
-// const Todo = mongoose.model('Todo');
 
 export const dataBulk = async (req, res) => {
   try {
@@ -15,7 +13,6 @@ export const dataBulk = async (req, res) => {
 
 export const saveTask = async (req, res) => {
   const newData = await req.body;
-  console.log(`newData: ${req.body}`)
 
   try {
     const dataSaved = await Task.create(newData);

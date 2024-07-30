@@ -7,7 +7,6 @@
         <!-- <link rel="stylesheet" href="/css/style.css"> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
-        <!-- <script type="module" src="/script.js" defer></script> -->
     </head>
     <body>
         <div class="page-content page-container" id="page-content">
@@ -17,7 +16,7 @@
                         <div class="card px-3">
                             <div class="card-body">
                                 <h4 class="card-title">My Todo List</h4>
-                                
+
                                 <${input.newButton}/>
 
                                 <div class="list-wrapper">
@@ -33,44 +32,3 @@
         </div>
     </body>
 </html>
-
-
-<script>
-  const deleteIcons =  document.querySelectorAll('.delete-icon');
-  const url = "http://localhost:3000/"
-
-  deleteIcons.forEach((icon) => {
-      icon.addEventListener('click', async () => {
-        const iconId = icon.getAttribute('id');
-
-        if (iconId) {
-          try {
-            const response = await fetch(`${url}deleteTodo/${iconId}`, {
-              method: 'DELETE'
-            });
-            if (response.status === 204) {
-              window.location.reload();  
-            }
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        }
-      });
-  });
-
-
-  const inputCheckboxes = document.querySelectorAll('.checkbox');
-
-  inputCheckboxes.forEach((inputCheckbox) => {
-    inputCheckbox.addEventListener("change", () => {
-      let li;
-      if(inputCheckbox.checked) {
-        inputCheckbox.removeAttribute('checked');
-      } else {
-        inputCheckbox.setAttribute('checked', 'checked');
-      }
-      li = inputCheckbox.closest('li');
-      li.classList.toggle('completed', inputCheckbox.checked)
-    })
-  })
-</script>

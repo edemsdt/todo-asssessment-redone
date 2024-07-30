@@ -54,7 +54,7 @@ export default class {
       return;
     }
 
-    const url = `/patch-task/${id}`; // Replace with your actual API endpoint
+    const url = `/patch-task/${id}`;
     const data = { checked: isChecked };
 
     try {

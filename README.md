@@ -1,4 +1,4 @@
-Marko Widgets: UI Components Playground w/ Vite
+To-Do app with Marko Vite with Express
 ==================================
 
 ## Getting Started
